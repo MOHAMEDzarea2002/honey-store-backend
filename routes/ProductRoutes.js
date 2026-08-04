@@ -14,9 +14,9 @@ const {
   verifyIdToken
 } = require('../middleware/auth');
 
-route.get('/', verifyIdToken,getProducts);
-route.get('/:id', verifyIdToken,getProductById);
-route.post('/', verifyIdToken,createProduct);
+route.get('/', verifyIdToken, getProducts);
+route.get('/:id', verifyIdToken, getProductById);
+route.post('/', verifyIdToken, createProduct);
 route.put('/:id', verifyIdToken, updateProduct);
 route.delete('/:id', verifyIdToken, deleteProduct);
 
