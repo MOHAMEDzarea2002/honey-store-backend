@@ -1,8 +1,7 @@
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const {getAuth} = require('firebase-admin/auth');
-console.log('ENV KEYS:', Object.keys(process.env).filter(k => k.includes('FIREBASE')));
-console.log('VALUE:', process.env.FIREBASE_PRIVATE_KEY);
+
 initializeApp({
   credential: cert({
     projectId: process.env.FIREBASE_PROJECT_ID,
