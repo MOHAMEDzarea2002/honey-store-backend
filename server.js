@@ -9,14 +9,10 @@ const productRoutes = require('./routes/ProductRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 
 const app = express();
-app.get('/debug-env', (req, res) => {
-  res.json({
-    hasProjectId: !!process.env.FIREBASE_PROJECT_ID,
-    hasClientEmail: !!process.env.FIREBASE_CLIENT_EMAIL,
-    hasPrivateKey: !!process.env.FIREBASE_PRIVATE_KEY,
-    allFirebaseKeys: Object.keys(process.env).filter(k => k.includes('FIREBASE'))
-  });
-});
+
+console.log('FIREBASE_PROJECT_ID:', process.env.FIREBASE_PROJECT_ID);
+console.log('FIREBASE_CLIENT_EMAIL:', process.env.FIREBASE_CLIENT_EMAIL);
+console.log('FIREBASE_PRIVATE_KEY exists:', !!process.env.FIREBASE_PRIVATE_KEY);
 app.use(cors());
 app.use(express.json());
 app.use('/api/orders', orderRoutes);
