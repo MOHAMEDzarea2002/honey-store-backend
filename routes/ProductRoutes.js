@@ -20,7 +20,7 @@ const {
 } = require('../middleware/auth');
 
 // the router for getting products
-route.get('/', verifyIdToken, getProducts);
+route.get('/',  getProducts);
 route.get('/:id', verifyIdToken, getProductById);
 route.post('/', verifyIdToken, createProduct);
 route.put('/:id', verifyIdToken, updateProduct);
