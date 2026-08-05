@@ -1,5 +1,9 @@
+// ProductController.js
 
+
+// import the ProductService
 const ProductService = require('../services/ProductService');
+
 // create a new product
 const createProduct =async (req,res)=>{
   const newProduct = req.body;
@@ -19,10 +23,10 @@ const createProduct =async (req,res)=>{
     });
   }
 }
+
   // get all products
 const getProducts =async (req,res)=>{
 
-  const token = req.headers.authorization
 
   try{
     const { cursor,limit = 10} = req.query
@@ -41,7 +45,44 @@ const getProducts =async (req,res)=>{
     });
   }
 }
-// get product by id
+
+//  delete product by id
+const deleteProduct = async (req, res) => {
+  const productId = req.params.id;
+  try {
+    await ProductService.deleteProduct(productId);
+    res.status(200).json({
+      success: true,
+      message: 'Product Deleted Successfully',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+const getProductById = async (req, res) => {
+  const productId = req.params.id;
+  try {
+    const productById = await ProductService.getProductById(productId);
+    res.status(200).json({
+      success: true,
+      message: 'Product Retrieved Successfully',
+      productById
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    })
+  }
+}
+
+// update product by id
 const updateProduct =async (req,res)=>{
   const productId = req.params.id;
   const newUpdate = req.body
@@ -62,40 +103,7 @@ const updateProduct =async (req,res)=>{
     });
   }
 }
-//  delete product by id
-const deleteProduct = async (req, res) => {
-  const productId = req.params.id;
-  try {
-    await ProductService.deleteProduct(productId);
-    res.status(200).json({
-      success: true,
-      message: 'Product Deleted Successfully',
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      error: error.message,
-    });
-  }
-};
-const getProductById = async (req, res) => {
-  const productId = req.params.id;
-  try{
-    const productById = await ProductService.getProductById(productId);
-    res.status(200).json({
-      success:true,
-      message:'Product Retrieved Successfully',
-      productById
-    })
-  }catch(error){
-    console.log(error);
-    res.status(500).json({
-      success:false,
-      error:error.message
-    })
-  }
-}
+// export the controller functions
 module.exports = {
   getProducts,
   createProduct,

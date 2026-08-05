@@ -1,4 +1,17 @@
+# Dependencies
 node_modules/
+
+# Environment variables
 .env
+
+# Firebase Admin SDK key
 serviceAccountKey.json
 
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
