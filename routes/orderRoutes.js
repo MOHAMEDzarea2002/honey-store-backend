@@ -15,11 +15,13 @@ const {
 } = require('../controllers/orderController');
 
 // the router for getting dashboard
+
+const { verifyIdToken } = require('../middleware/auth')
 router.post('/', createOrder);
-router.get('/', getOrders);
-router.get('/:id', getOrder);
-router.put('/:id', updateStatus);
-router.delete('/:id', deleteOrder);
+router.get('/', verifyIdToken, getOrders);
+router.get('/:id', verifyIdToken, getOrder);
+router.put('/:id', verifyIdToken,updateStatus);
+router.delete('/:id', verifyIdToken,deleteOrder);
 
 // Export the router
 module.exports = router;
