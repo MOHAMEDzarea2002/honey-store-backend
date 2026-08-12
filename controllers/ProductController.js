@@ -29,8 +29,8 @@ const getProducts =async (req,res)=>{
 
 
   try{
-    const { cursor,limit = 10} = req.query
-    const products = await ProductService.getProducts({ limit, cursor });
+    const { cursor,limit = 10,category,minPrice,maxPrice,sort} = req.query
+    const products = await ProductService.getProducts({ limit, cursor, category, minPrice, maxPrice, sort });
     res.status(200).json({
       success: true,
       message: 'Products Retrieved Successfully',

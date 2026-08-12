@@ -4,7 +4,8 @@ const { FieldValue } = require("firebase-admin/firestore");
 
 // cerate a new product
 const createProduct = async (newProduct) => {
-  const docRef = await db.collection("products").add({...newProduct,
+  const docRef = await db.collection("products").add({
+    ...newProduct,
     createAt: FieldValue.serverTimestamp(),
   });
 
@@ -32,11 +33,39 @@ const getProductById = async (productId) => {
 
 }
 // get all products
-const getProducts = async ({ limit, cursor }) => {
+const getProducts = async ({ limit, cursor, category, minPrice, maxPrice, sort }) => {
+  let sortField = "createAt";
+  let sortDirection = "desc";
+
+  if (sort === "price_asc") {
+    sortField = "price";
+    sortDirection = "asc";
+  }
+
+  if (sort === "price_desc") {
+    sortField = "price";
+    sortDirection = "desc";
+  }
+
+  if (sort === "oldest") {
+    sortField = "createAt";
+    sortDirection = "asc";
+  }
+  
   let query = db
     .collection("products")
-    .orderBy("createAt", "desc");
+    .orderBy(sortField, sortDirection);
 
+
+  if (category){
+    query = query.where("category", "==", category)
+  }
+  if (minPrice) {
+    query = query.where("price", ">=", Number(minPrice))
+  }
+  if (maxPrice) {
+    query = query.where("price", "<=", Number(maxPrice))
+  }
   if (cursor) {
     const lastDoc = await db.collection("products").doc(cursor).get();
 
@@ -44,6 +73,7 @@ const getProducts = async ({ limit, cursor }) => {
       query = query.startAfter(lastDoc);
     }
   }
+
 
   query = query.limit(Number(limit) + 1);
 
