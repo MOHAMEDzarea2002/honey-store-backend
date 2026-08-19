@@ -14,6 +14,7 @@ const {
   getProductById,
 
 } = require('../controllers/ProductController');
+
 // import the auth middleware
 const {
   verifyIdToken
