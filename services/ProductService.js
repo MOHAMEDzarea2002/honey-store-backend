@@ -1,7 +1,6 @@
-const { Timestamp } = require('firebase-admin/firestore');
+
 const { db } = require('../config/firebase');
 const { FieldValue } = require("firebase-admin/firestore");
-
 // cerate a new product
 const createProduct = async (newProduct) => {
   const docRef = await db.collection("products").add({
@@ -51,7 +50,7 @@ const getProducts = async ({ limit, cursor, category, minPrice, maxPrice, sort }
     sortField = "createAt";
     sortDirection = "asc";
   }
-  
+
   let query = db
     .collection("products")
     .orderBy(sortField, sortDirection);
@@ -66,7 +65,7 @@ const getProducts = async ({ limit, cursor, category, minPrice, maxPrice, sort }
   if (maxPrice) {
     query = query.where("price", "<=", Number(maxPrice))
   }
-  if (cursor) {
+  if (cursor && cursor !== "null") {
     const lastDoc = await db.collection("products").doc(cursor).get();
 
     if (lastDoc.exists) {
@@ -91,6 +90,7 @@ const getProducts = async ({ limit, cursor, category, minPrice, maxPrice, sort }
   }));
 
   const lastVisible = docs[docs.length - 1];
+
 
   return {
     products,

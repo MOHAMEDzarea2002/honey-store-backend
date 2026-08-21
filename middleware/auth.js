@@ -1,5 +1,5 @@
 // import the firebase auth from the config file
-const {auth} =require('../config/firebase')
+const {auth} = require('../config/firebase')
 
 // middleware to verify the id token from the request header
 const verifyIdToken = async (req,res,next) =>{
