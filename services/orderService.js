@@ -14,9 +14,12 @@ const createOrder = async (orderData) => {
     status: "Pending",
     createdAt: FieldValue.serverTimestamp(),
   })
+  const orderDoc = await orderRef.get();
+
 // return the order id
   return {
     id: orderRef.id,
+    ...orderDoc.data()
   };
 }
 
