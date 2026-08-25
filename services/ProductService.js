@@ -5,6 +5,7 @@ const { FieldValue } = require("firebase-admin/firestore");
 const createProduct = async (newProduct) => {
   const docRef = await db.collection("products").add({
     ...newProduct,
+    price: Number(newProduct.price),
     createAt: FieldValue.serverTimestamp(),
   });
 
@@ -56,7 +57,7 @@ const getProducts = async ({ limit, cursor, category, minPrice, maxPrice, sort }
     .orderBy(sortField, sortDirection);
 
 
-  if (category){
+  if (category) {
     query = query.where("category", "==", category)
   }
   if (minPrice) {
@@ -86,6 +87,7 @@ const getProducts = async ({ limit, cursor, category, minPrice, maxPrice, sort }
 
   const products = docs.map(doc => ({
     id: doc.id,
+
     ...doc.data(),
   }));
 
