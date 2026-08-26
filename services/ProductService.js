@@ -14,8 +14,6 @@ const createProduct = async (newProduct) => {
   return {
     id: productDoc.id,
     ...productDoc.data()
-
-
   };
 };
 
