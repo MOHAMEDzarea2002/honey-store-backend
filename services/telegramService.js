@@ -11,7 +11,7 @@ orderData.product.forEach((item) => {
   const itemTotal = item.price * item.quantity;
   total += itemTotal;
 
-  products += `🛍️ اسم المنتج: ${item.title}
+  products += `🛍️ اسم المنتج: ${item.name}
 📦 الكمية: ${item.quantity}
 💰 سعر المنتج: ${itemTotal.toFixed(2)} جنيه
 ────────────────────
