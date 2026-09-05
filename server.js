@@ -30,6 +30,10 @@ app.use((err, req, res, next) => {
 // Start the server
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-  console.log(` Server Running On Port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
