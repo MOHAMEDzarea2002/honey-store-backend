@@ -18,6 +18,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'API is running successfully!' });
 });
+
 app.use('/api/orders', orderRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/dashboard', dashboardRoutes);
@@ -30,10 +31,10 @@ app.use((err, req, res, next) => {
 // Start the server
 const PORT = process.env.PORT || 8080;
 
-if (process.env.NODE_ENV !== "production") {
+
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
-}
+
 
 module.exports = app;
